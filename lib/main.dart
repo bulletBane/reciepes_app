@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:recipes_app/presentation/auth/login_page.dart';
+import 'package:recipes_app/presentation/auth/login/login_page.dart';
 import 'package:recipes_app/presentation/shared/theme_data.dart';
 
 void main() async {

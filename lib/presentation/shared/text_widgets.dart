@@ -114,6 +114,30 @@ class Txt extends Text {
         fontSize: 14.ssp,
         fontWeight: FontWeight.w400,
       );
+  factory Txt.h3(String data,
+          {Color color,
+          TextOverflow textOverflow,
+          FontWeight fontWeight,
+          double fontSize}) =>
+      Txt(
+        data,
+        color: color,
+        textOverflow: textOverflow,
+        fontSize: 14.ssp,
+        fontWeight: FontWeight.w400,
+      );
+  factory Txt.h3Bold(String data,
+          {Color color,
+          TextOverflow textOverflow,
+          FontWeight fontWeight,
+          double fontSize}) =>
+      Txt(
+        data,
+        color: color,
+        textOverflow: textOverflow,
+        fontSize: 14.ssp,
+        fontWeight: FontWeight.w700,
+      );
   @override
   Widget build(BuildContext context) {
     return super.build(context);
