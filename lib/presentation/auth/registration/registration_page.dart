@@ -1,74 +1,52 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'package:recipes_app/presentation/auth/components/buttons_bloc.dart';
+import 'package:recipes_app/presentation/auth/controller/auth_controller.dart';
 import 'package:recipes_app/presentation/auth/login/login_page.dart';
 import 'package:recipes_app/presentation/shared/text_widgets.dart';
 
-class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key key}) : super(key: key);
-
-  @override
-  _RegistrationPageState createState() => _RegistrationPageState();
-}
-
-class _RegistrationPageState extends State<RegistrationPage> {
+class RegistrationPage extends GetWidget<AuthController> {
   final _formKey = GlobalKey<FormState>();
   static const double _paddingHorizontal = 15;
-  Widget _header() => Column(
-        children: [
-          Container(
-            height: 285.h,
-            width: 1.sw,
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.only(bottomRight: Radius.circular(90)),
-              child: Stack(
-                children: [
-                  Stack(
-                    children: [
-                      Image.asset(
-                        'assets/login_header.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                        color: Colors.white.withOpacity(0.4),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: _paddingHorizontal),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Txt.h1Bold('SMTTT', color: Colors.black),
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            Txt.h1Bold('Добро пожаловать!',
-                                color: Colors.black),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController loginController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return ColorfulSafeArea(
+      color: Colors.white,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Header('Добро пожаловать'),
+              _loginToContinue(),
+              _loginForm(),
+              ButtonsBlock(
+                onGreenButtonPressed: () {
+                  controller.signUp(
+                      email: loginController.text,
+                      password: passwordController.text,
+                      name: nameController.text);
+                },
+                onFlatButtonPressed: () {
+                  Get.to(LoginPage());
+                },
+                greenButtonData: 'Регистрация',
+                flatButtonData: 'Войти',
+                annotationData: 'Уже есть аккаунт?',
+              )
+            ],
           ),
-          _verticalBox(),
-        ],
-      );
+        ),
+      ),
+    );
+  }
 
   Widget _loginToContinue() => Column(
         children: [
@@ -96,6 +74,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Column(
           children: [
             TextFormField(
+              controller: nameController,
               decoration: InputDecoration(
                 hintText: nameText,
                 labelText: nameText,
@@ -103,6 +82,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             _verticalBox(),
             TextFormField(
+              controller: loginController,
               decoration: InputDecoration(
                 hintText: loginText,
                 labelText: loginText,
@@ -110,6 +90,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             _verticalBox(),
             TextFormField(
+              controller: passwordController,
               decoration: InputDecoration(
                 hintText: passwordText,
                 labelText: passwordText,
@@ -117,33 +98,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             _bigVerticalBox(),
             _verticalBox()
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _header(),
-            _loginToContinue(),
-            _loginForm(),
-            ButtonsBlock(
-              onGreenButtonPressed: () {},
-              onFlatButtonPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              greenButtonData: 'Регистрация',
-              flatButtonData: 'Войти',
-              annotationData: 'Уже есть аккаунт?',
-            )
           ],
         ),
       ),

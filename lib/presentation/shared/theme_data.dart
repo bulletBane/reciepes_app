@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightMode = ThemeData.light().copyWith(
-    primaryColorLight: Clrs.grayLightMode,
-    // focusColor: Clrs.greenLighMode,
-    hintColor: Clrs.grayLightMode,
-    primaryColor: Clrs.greenLighMode,
-    hoverColor: Clrs.grayLightMode
-    // appBarTheme: AppBarTheme(color: Colors.white),
-    // primaryColor: Clrs.grayLightMode,
-    // accentColor: Clrs.greenLighMode,
-    // backgroundColor: Colors.white,
-    // scaffoldBackgroundColor: Colors.white,
-    // primaryColorDark: Colors.black,
-    // primaryColorLight: Color(0xFF40DA9B),
-    // focusColor: Clrs.grayLightMode,
-    // hoverColor: Color(0xFFB8A98BA),
-    );
+  primaryColorLight: Clrs.grayLightMode,
+  // focusColor: Clrs.greenLighMode,
+  hintColor: Clrs.grayLightMode,
+  primaryColor: Clrs.greenLighMode,
+  hoverColor: Clrs.grayLightMode,
+  appBarTheme: AppBarTheme(color: Colors.white),
+  accentColor: Clrs.greenLighMode,
+  backgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.white,
+  primaryColorDark: Colors.black,
+  focusColor: Clrs.grayLightMode,
+);
 ThemeData darkMode = ThemeData.dark().copyWith(
   appBarTheme: AppBarTheme(color: Color(0xFF323232)),
   primaryColor: Color(0xFFBEC0FF),

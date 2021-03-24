@@ -123,7 +123,7 @@ class Txt extends Text {
         data,
         color: color,
         textOverflow: textOverflow,
-        fontSize: 14.ssp,
+        fontSize: 16.ssp,
         fontWeight: FontWeight.w400,
       );
   factory Txt.h3Bold(String data,
@@ -135,7 +135,7 @@ class Txt extends Text {
         data,
         color: color,
         textOverflow: textOverflow,
-        fontSize: 14.ssp,
+        fontSize: 16.ssp,
         fontWeight: FontWeight.w700,
       );
   @override

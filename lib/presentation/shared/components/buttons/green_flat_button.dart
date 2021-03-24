@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../text_widgets.dart';
 
@@ -17,7 +18,7 @@ class GreenButton extends StatelessWidget {
         height: 50.h,
         child: TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Get.theme.primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.ssp)),
             ),
