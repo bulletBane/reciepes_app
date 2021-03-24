@@ -6,18 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:recipes_app/presentation/create_recipe/controller/create_recipe_controller.dart';
+import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/controller/gallery_widget_controller.dart';
 import 'package:recipes_app/presentation/shared/text_widgets.dart';
 
-class RecipeFieldWidget extends GetWidget<CreateRecipeController> {
-  final String title;
-  final VoidCallback onPressed;
-  final String buttonTitle;
-
-  const RecipeFieldWidget(
-      {Key key, this.title, this.onPressed, this.buttonTitle})
-      : super(key: key);
+class GalleryFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.put(GalleryWidgetController());
+    final controller = Get.find<GalleryWidgetController>();
     return Center(
       child: Container(
         margin: EdgeInsets.only(bottom: 15.h),
@@ -39,7 +35,7 @@ class RecipeFieldWidget extends GetWidget<CreateRecipeController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Txt.h3(title),
+                Txt.h3('Галерея'),
                 Icon(CupertinoIcons.pencil),
               ],
             ),
@@ -65,9 +61,11 @@ class RecipeFieldWidget extends GetWidget<CreateRecipeController> {
               width: 295.w,
               height: 50.h,
               child: TextButton(
-                onPressed: onPressed,
+                onPressed: () {
+                  controller.pickImage();
+                },
                 child: Txt.h3(
-                  buttonTitle,
+                  "Нажмите что бы добавить фото",
                   color: Get.theme.hintColor,
                 ),
                 style: TextButton.styleFrom(

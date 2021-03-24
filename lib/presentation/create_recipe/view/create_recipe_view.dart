@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipes_app/presentation/create_recipe/controller/create_recipe_controller.dart';
-import 'package:recipes_app/presentation/create_recipe/view/widgets/recipe_field.dart';
-import 'package:recipes_app/presentation/shared/text_widgets.dart';
+import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/controller/gallery_widget_controller.dart';
+import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/view/gallery_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CreateRecipeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.put(GalleryWidgetController());
+
     Get.put(CreateRecipeController());
+
     final controller = Get.find<CreateRecipeController>();
     return Scaffold(
       appBar: AppBar(
@@ -32,23 +35,7 @@ class CreateRecipeView extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 20.h),
         children: [
-          RecipeFieldWidget(
-            title: 'Gallery',
-            onPressed: () {
-              controller.pickImage();
-            },
-            buttonTitle: 'Upload Image Or Open Camera',
-          ),
-          RecipeFieldWidget(
-            title: 'Gallery',
-            onPressed: () {},
-            buttonTitle: 'Upload Image Or Open Camera',
-          ),
-          RecipeFieldWidget(
-            title: 'Gallery',
-            onPressed: () {},
-            buttonTitle: 'Upload Image Or Open Camera',
-          ),
+          GalleryFieldWidget(),
           TextButton(onPressed: () {}, child: Text('create task'))
         ],
       ),
