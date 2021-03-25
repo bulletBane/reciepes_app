@@ -7,6 +7,9 @@ class INgredientWidgetController extends GetxController {
   RxList<Ingridient> _ingredients = RxList<Ingridient>();
   set addIngredient(Ingridient ingridient) => _ingredients.add(ingridient);
 
+  set deleteIngredient(Ingridient ingridient) =>
+      _ingredients.remove(ingridient);
+
   List<Ingridient> get ingridients => _ingredients;
 
   void insertIngredient({int index, Ingridient ingridient}) {
@@ -26,7 +29,7 @@ class INgredientWidgetController extends GetxController {
         isDismissible: false,
         persistent: false,
         ignoreSafeArea: false,
-        enableDrag: false,
+        enableDrag: true,
         isScrollControlled: true);
   }
 }

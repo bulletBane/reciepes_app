@@ -12,6 +12,10 @@ class CreateIngredientBottomSheet
   CreateIngredientBottomSheet();
   @override
   Widget build(BuildContext context) {
+    String sheetTitle = controller.indexOfIngredient != null
+        ? 'Редактирование инегрдиента'
+        : 'Добавьте ингридиент';
+
     return ColorfulSafeArea(
       color: Get.theme.backgroundColor,
       child: BottomSheet(
@@ -34,9 +38,7 @@ class CreateIngredientBottomSheet
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Txt.h3(controller.indexOfIngredient != null
-                                ? 'Редактирование инегрдиента'
-                                : 'Добавьте ингридиент'),
+                            Txt.h3(sheetTitle),
                             GestureDetector(
                                 onTap: () {
                                   controller.clear();
