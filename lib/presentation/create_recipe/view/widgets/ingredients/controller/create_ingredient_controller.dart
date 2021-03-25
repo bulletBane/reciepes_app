@@ -2,44 +2,55 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:recipes_app/data/models/ingridient.dart';
 import 'package:recipes_app/presentation/create_recipe/view/widgets/ingredients/controller/ingredient_widget_controller.dart';
+import 'package:recipes_app/services/pick_file_service.dart';
 
 class CreateIngredientController extends GetxController {
-  Ingridient _ingredient = Ingridient();
+  get image => _image.value;
+
+  get indexOfIngredient => _indexOfIngredient;
+
+  set image(File file) => _image.value = file;
+
+  set title(String text) => textController.text = text;
+
+  set index(int index) => _indexOfIngredient = index;
+
+  int _indexOfIngredient;
 
   Rx<File> _image = Rx<File>();
 
-  ImagePicker _picker = ImagePicker();
+  PickFileService _fileService = PickFileService();
 
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
 
   final parentController = Get.find<INgredientWidgetController>();
 
   void pickImage() async {
-    try {
-      PickedFile pickedFile = await _picker.getImage(
-        source: ImageSource.gallery,
-        maxHeight: 300,
-        maxWidth: 300,
-        imageQuality: 100,
-      );
-      _image.value = File(pickedFile.path);
-    } catch (e) {
-      print(e);
-    }
+    File image = await _fileService.pickImage();
+    if (image != null) _image.value = image;
+  }
+
+  void clear() {
+    textController.text = '';
+    _image = Rx<File>();
+    _indexOfIngredient = null;
   }
 
   void saveIngredient() {
-    _ingredient =
-        Ingridient(photo: _image.value, title: textEditingController.text);
-
-    parentController.ingridients = _ingredient;
-    Get.back();
+    if (formKey.currentState.validate()) {
+      Ingridient ingridient =
+          Ingridient(photo: _image.value, title: textController.text);
+      if (_indexOfIngredient == null)
+        parentController.addIngredient = ingridient;
+      else
+        parentController.insertIngredient(
+            index: _indexOfIngredient, ingridient: ingridient);
+      clear();
+      Get.back();
+    }
   }
-
-  get image => _image.value;
-
-  get ingredient => _ingredient;
 }

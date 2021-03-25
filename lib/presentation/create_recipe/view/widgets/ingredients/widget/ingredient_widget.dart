@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,30 +39,69 @@ class IngredientWidget extends GetWidget<INgredientWidgetController> {
             Obx(() => controller.ingridients != null
                 ? Column(
                     children: [
-                      for (Ingridient ingridient in controller.ingridients)
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      // for (Ingridient ingridient in controller.ingridients)
+                      for (int i = 0; i < controller.ingridients.length; i++)
                         Container(
                             width: 325.w,
-                            margin: EdgeInsets.symmetric(vertical: 10.w),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 40.w,
-                                  height: 40.w,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(300),
-                                      child: Image.file(
-                                        ingridient.photo,
-                                        fit: BoxFit.fill,
-                                      )),
-                                ),
-                                Txt.h1(ingridient.title)
-                              ],
+                            margin: EdgeInsets.symmetric(vertical: 3.w),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                  primary: Get.theme.primaryColor,
+                                  padding: EdgeInsets.all(10.w),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(8.ssp),
+                                      side: BorderSide(
+                                          color: Get.theme.primaryColor))),
+                              onPressed: () {
+                                controller.editIngredient(
+                                    controller.ingridients[i], i);
+                                controller.openBottomSheet(
+                                  WillPopScope(
+                                      onWillPop: () {
+                                        return;
+                                      },
+                                      child: CreateIngredientBottomSheet()),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 30.w,
+                                    height: 30.w,
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(300),
+                                        child: controller
+                                                    .ingridients[i].photo !=
+                                                null
+                                            ? Image.file(
+                                                controller.ingridients[i].photo,
+                                                fit: BoxFit.fill,
+                                              )
+                                            : Icon(
+                                                CupertinoIcons.camera,
+                                                color: Get.theme.primaryColor,
+                                              )),
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Txt.h3Bold(
+                                    controller.ingridients[i].title,
+                                    color: Get.theme.primaryColorDark,
+                                  )
+                                ],
+                              ),
                             ))
                     ],
                   )
                 : Container()),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             SizedBox(
               width: 295.w,
@@ -73,8 +109,13 @@ class IngredientWidget extends GetWidget<INgredientWidgetController> {
               child: TextButton(
                 onPressed: () {
                   Get.put(CreateIngredientController());
-                  Get.bottomSheet(CreateIngredientBottomSheet(),
-                      isScrollControlled: true);
+                  controller.openBottomSheet(
+                    WillPopScope(
+                        onWillPop: () {
+                          return;
+                        },
+                        child: CreateIngredientBottomSheet()),
+                  );
                 },
                 child: Txt.h3(
                   "Нажмите что бы добавить ингредиент",

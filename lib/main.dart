@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
                 dark: darkMode,
                 initial: savedThemeMode ?? AdaptiveThemeMode.system,
                 builder: (theme, darkTheme) => GetMaterialApp(
+                      debugShowCheckedModeBanner: false,
                       theme: theme,
                       darkTheme: darkTheme,
                       initialBinding: AuthBinding(),

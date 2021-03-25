@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipes_app/data/models/recipe_model.dart';
 import 'package:recipes_app/data/repo/recipes_repo.dart';
-import 'package:recipes_app/data/repo/user_db.dart';
 import 'package:recipes_app/presentation/auth/controller/auth_controller.dart';
 
 class Home extends StatelessWidget {

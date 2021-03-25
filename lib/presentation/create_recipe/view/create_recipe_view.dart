@@ -6,14 +6,18 @@ import 'package:recipes_app/presentation/create_recipe/controller/create_recipe_
 import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/controller/gallery_widget_controller.dart';
 import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/view/gallery_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:recipes_app/presentation/create_recipe/view/widgets/ingredients/controller/create_ingredient_controller.dart';
 import 'package:recipes_app/presentation/create_recipe/view/widgets/ingredients/controller/ingredient_widget_controller.dart';
 import 'package:recipes_app/presentation/create_recipe/view/widgets/ingredients/widget/ingredient_widget.dart';
 
 class CreateRecipeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Get.put(GalleryWidgetController());
     Get.put(INgredientWidgetController());
+
+    Get.put(CreateIngredientController());
+
+    Get.put(GalleryWidgetController());
 
     Get.put(CreateRecipeController());
 

@@ -55,7 +55,7 @@ class GalleryFieldWidget extends StatelessWidget {
                   )
                 : Container()),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             SizedBox(
               width: 295.w,

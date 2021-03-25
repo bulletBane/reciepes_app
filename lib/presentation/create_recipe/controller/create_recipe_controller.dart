@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:recipes_app/presentation/create_recipe/view/widgets/gallery/controller/gallery_widget_controller.dart';
 import 'package:recipes_app/presentation/shared/const.dart';
 import 'package:recipes_app/services/storage_service.dart';

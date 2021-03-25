@@ -1,3 +1,4 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,68 +9,98 @@ import 'package:recipes_app/presentation/shared/text_widgets.dart';
 
 class CreateIngredientBottomSheet
     extends GetWidget<CreateIngredientController> {
+  CreateIngredientBottomSheet();
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-        enableDrag: true,
-        onClosing: () {},
-        builder: (context) {
-          return Container(
-            height: 250.h,
-            padding: EdgeInsets.all(10.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Txt.h1('Добавьте ингридиент'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        controller.pickImage();
-                      },
-                      child: SizedBox(
-                        height: 40.w,
-                        width: 40.w,
-                        child: Obx(() {
-                          return controller.image != null
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(3000)),
-                                  child: Image.file(
-                                    controller.image,
-                                    fit: BoxFit.fill,
-                                  ),
-                                )
-                              : Icon(CupertinoIcons.camera);
-                        }),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Ингридиент'),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 60.h,
-                ),
-                GreenButton(
-                  data: 'Сохранить',
-                  onPressed: () {
-                    controller.saveIngredient();
-                  },
-                )
-              ],
-            ),
-          );
-        });
+    return ColorfulSafeArea(
+      color: Get.theme.backgroundColor,
+      child: BottomSheet(
+          backgroundColor: Get.theme.backgroundColor,
+          enableDrag: true,
+          onClosing: () {
+            controller.clear();
+          },
+          builder: (context) {
+            return Container(
+              height: 1.sh,
+              padding: EdgeInsets.all(10.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Txt.h3(controller.indexOfIngredient != null
+                                ? 'Редактирование инегрдиента'
+                                : 'Добавьте ингридиент'),
+                            GestureDetector(
+                                onTap: () {
+                                  controller.clear();
+                                  Get.back();
+                                },
+                                child: Icon(Icons.close_rounded))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                controller.pickImage();
+                              },
+                              child: SizedBox(
+                                height: 40.w,
+                                width: 40.w,
+                                child: Obx(() {
+                                  return controller.image != null
+                                      ? ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(3000)),
+                                          child: Image.file(
+                                            controller.image,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Icon(CupertinoIcons.camera);
+                                }),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Expanded(
+                              child: Form(
+                                key: controller.formKey,
+                                child: TextFormField(
+                                  validator: (value) {
+                                    return value.isNotEmpty
+                                        ? null
+                                        : 'Вы должны дать название ингредиенту';
+                                  },
+                                  controller: controller.textController,
+                                  decoration:
+                                      InputDecoration(labelText: 'Ингридиент'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
+                  GreenButton(
+                    data: 'Сохранить',
+                    onPressed: () {
+                      controller.saveIngredient();
+                    },
+                  )
+                ],
+              ),
+            );
+          }),
+    );
   }
 }
